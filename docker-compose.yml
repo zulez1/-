@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: sem
+      POSTGRES_PASSWORD: sem
+      POSTGRES_DB: sem
+    ports:
+      - "5432:5432"
+    volumes:
+      - sem_db_data:/var/lib/postgresql/data
+
+volumes:
+  sem_db_data:
