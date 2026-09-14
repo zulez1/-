@@ -2,33 +2,70 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* Semantic tokens — single source of truth (light theme only). */
+  --color-surface-page: #f8fafc;
+  --color-surface-card: #ffffff;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #475569;
+  --color-border-default: #e2e8f0;
+  --focus-ring-color: #16a34a;
+}
+
 body {
-  color: #0f172a;
-  background: #f8fafc;
+  color: var(--color-text-primary);
+  background: var(--color-surface-page);
+}
+
+/* Double-ring focus indicator (WCAG 2.4.7) on every interactive element. */
+a,
+button,
+input,
+select,
+textarea,
+[tabindex] {
+  outline: none;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-surface-card), 0 0 0 4px var(--focus-ring-color);
+  border-radius: 4px;
 }
 
 .card {
-  @apply rounded-2xl border border-slate-200 bg-white shadow-sm;
+  @apply rounded-lg border border-slate-200 bg-white shadow-xs;
 }
 
 .btn {
-  @apply inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50;
+  @apply inline-flex items-center justify-center gap-1.5 rounded-md px-4 py-2 text-sm font-medium leading-none transition-colors disabled:cursor-not-allowed disabled:opacity-50;
 }
 
+/* Primary = the one main affirmative action. */
 .btn-primary {
-  @apply btn bg-brand-600 text-white hover:bg-brand-700;
+  @apply btn bg-brand-600 text-white hover:bg-brand-700 hover:shadow-primary-glow active:bg-brand-800;
 }
 
+/* Secondary = neutral, never a colored fill. */
 .btn-secondary {
-  @apply btn bg-slate-100 text-slate-700 hover:bg-slate-200;
+  @apply btn bg-slate-100 text-slate-700 hover:bg-slate-200 active:bg-slate-300;
 }
 
 .btn-outline {
-  @apply btn border border-slate-300 bg-white text-slate-700 hover:bg-slate-50;
+  @apply btn border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 active:bg-slate-100;
+}
+
+/* Danger = destructive actions only (cancel, reject, delete) — never reused for anything else. */
+.btn-danger {
+  @apply btn bg-danger-600 text-white hover:bg-danger-700 hover:shadow-danger-glow active:bg-danger-800;
 }
 
 .input {
-  @apply w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500;
+  @apply w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:border-brand-500;
 }
 
 .label {
@@ -36,5 +73,5 @@ body {
 }
 
 .badge {
-  @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
+  @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium;
 }

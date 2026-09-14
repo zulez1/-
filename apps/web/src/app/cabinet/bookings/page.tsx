@@ -62,7 +62,7 @@ export default function MyBookingsPage() {
                   </Link>
                 )}
                 {(b.status === "PENDING" || b.status === "CONFIRMED") && (
-                  <button className="btn-secondary" onClick={() => cancel(b.id)}>
+                  <button className="btn-danger" onClick={() => cancel(b.id)}>
                     Отменить
                   </button>
                 )}

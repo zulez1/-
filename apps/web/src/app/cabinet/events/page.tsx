@@ -69,7 +69,7 @@ export default function MyEventsPage() {
               <div className="flex items-center gap-3">
                 <span className={`badge ${STATUS_COLORS[e.status]}`}>{STATUS_LABELS[e.status]}</span>
                 {(e.status === "PUBLISHED" || e.status === "PENDING_REVIEW") && (
-                  <button className="btn-secondary" onClick={() => cancel(e.id)}>
+                  <button className="btn-danger" onClick={() => cancel(e.id)}>
                     Отменить
                   </button>
                 )}

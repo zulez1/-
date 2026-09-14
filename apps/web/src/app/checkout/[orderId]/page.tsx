@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { api, ApiError } from "@/lib/api";
 import type { Order } from "@/lib/types";
+import { IconCheck } from "@/components/icons";
 
 export default function CheckoutPage() {
   const { orderId } = useParams<{ orderId: string }>();
@@ -49,7 +50,7 @@ export default function CheckoutPage() {
         {isTicketOrder && order.tickets && (
           <div className="mb-4 space-y-2">
             {order.tickets.map((t) => (
-              <div key={t.id} className="flex items-center justify-between rounded-xl bg-slate-50 p-3 text-sm">
+              <div key={t.id} className="flex items-center justify-between rounded-lg bg-slate-50 p-3 text-sm">
                 <span>{t.event?.title}</span>
                 <span className="font-medium">{Number(t.price).toLocaleString("ru-RU")} ₽</span>
               </div>
@@ -58,7 +59,7 @@ export default function CheckoutPage() {
         )}
 
         {order.booking && (
-          <div className="mb-4 rounded-xl bg-slate-50 p-3 text-sm">
+          <div className="mb-4 rounded-lg bg-slate-50 p-3 text-sm">
             <div className="font-medium">{order.booking.venue?.name}</div>
             <div className="text-slate-500">
               {new Date(order.booking.date).toLocaleDateString("ru-RU")} · {order.booking.startTime}–{order.booking.endTime}
@@ -75,8 +76,10 @@ export default function CheckoutPage() {
 
         {isPaid ? (
           <div className="text-center">
-            <div className="mb-4 text-4xl">✅</div>
-            <p className="mb-4 font-medium text-emerald-700">Оплата прошла успешно!</p>
+            <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-brand-100 text-brand-700">
+              <IconCheck className="h-6 w-6" />
+            </div>
+            <p className="mb-4 font-medium text-brand-700">Оплата прошла успешно!</p>
             <button className="btn-primary w-full" onClick={() => router.push("/cabinet")}>
               Перейти в личный кабинет
             </button>

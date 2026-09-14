@@ -66,7 +66,7 @@ export default function AdminVenuesPage() {
                   value={reasonDrafts[v.id] ?? ""}
                   onChange={(e) => setReasonDrafts({ ...reasonDrafts, [v.id]: e.target.value })}
                 />
-                <button className="btn-secondary" onClick={() => reject(v.id)}>
+                <button className="btn-danger" onClick={() => reject(v.id)}>
                   Отклонить
                 </button>
               </div>

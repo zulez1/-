@@ -104,7 +104,7 @@ export default function NewEventPage() {
               <button
                 type="button"
                 key={opt.value}
-                className={`rounded-xl border p-3 text-left text-sm ${
+                className={`rounded-lg border p-3 text-left text-sm ${
                   form.format === opt.value ? "border-brand-600 bg-brand-50" : "border-slate-200 hover:border-brand-300"
                 }`}
                 onClick={() => setForm({ ...form, format: opt.value })}
@@ -140,7 +140,7 @@ export default function NewEventPage() {
               <option value="">Выберите</option>
               {sportTypes.map((s) => (
                 <option key={s.id} value={s.id}>
-                  {s.icon} {s.name}
+                  {s.name}
                 </option>
               ))}
             </select>

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { api, ApiError } from "@/lib/api";
 import { useCity } from "@/lib/city-context";
+import { SportIcon } from "@/components/icons";
 import type { SportType } from "@/lib/types";
 
 export default function NewVenuePage() {
@@ -163,7 +164,7 @@ export default function NewVenuePage() {
                 }`}
                 onClick={() => toggleSport(s.id)}
               >
-                {s.icon} {s.name}
+                <SportIcon slug={s.slug} className="h-3 w-3" /> {s.name}
               </button>
             ))}
           </div>

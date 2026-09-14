@@ -35,7 +35,7 @@ export default function AdminStatsPage() {
         {cards.map((c) => (
           <div key={c.label} className="card p-5">
             <div className="text-sm text-slate-500">{c.label}</div>
-            <div className="text-2xl font-bold">{c.value}</div>
+            <div className="text-3xl font-bold tracking-tight">{c.value}</div>
           </div>
         ))}
       </div>

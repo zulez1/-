@@ -23,7 +23,7 @@ export function Header() {
     <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/90 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
         <div className="flex items-center gap-6">
-          <Link href="/" className="text-lg font-bold text-brand-700">
+          <Link href="/" className="text-xl font-bold tracking-tight text-brand-700">
             СпортМаркет
           </Link>
           <nav className="hidden items-center gap-5 md:flex">

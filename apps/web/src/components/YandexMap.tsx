@@ -78,7 +78,7 @@ export function YandexMap({ center, zoom = 11, points, onPointClick, height = 48
         </p>
         <ul className="grid gap-2 sm:grid-cols-2">
           {points.map((p) => (
-            <li key={p.id} className="cursor-pointer rounded-xl border border-slate-200 p-3 text-sm hover:border-brand-400" onClick={() => onPointClick?.(p)}>
+            <li key={p.id} className="cursor-pointer rounded-lg border border-slate-200 p-3 text-sm hover:border-brand-400" onClick={() => onPointClick?.(p)}>
               <span
                 className="mr-2 inline-block h-2.5 w-2.5 rounded-full align-middle"
                 style={{ backgroundColor: PIN_COLOR[p.kind] }}
@@ -99,7 +99,7 @@ export function YandexMap({ center, zoom = 11, points, onPointClick, height = 48
         strategy="afterInteractive"
         onReady={() => setScriptReady(true)}
       />
-      <div ref={containerRef} className="w-full overflow-hidden rounded-2xl border border-slate-200" style={{ height }} />
+      <div ref={containerRef} className="w-full overflow-hidden rounded-lg border border-slate-200" style={{ height }} />
     </>
   );
 }

@@ -11,17 +11,18 @@ const CITIES = [
   { name: "Екатеринбург", slug: "ekaterinburg", lat: 56.8389, lng: 60.6057, zoom: 11 },
 ];
 
+// icon rendering lives in the frontend's SportIcon component (keyed by slug) — no emoji in data.
 const SPORT_TYPES = [
-  { name: "Футбол", slug: "football", icon: "⚽" },
-  { name: "Баскетбол", slug: "basketball", icon: "🏀" },
-  { name: "Теннис", slug: "tennis", icon: "🎾" },
-  { name: "Волейбол", slug: "volleyball", icon: "🏐" },
-  { name: "Плавание", slug: "swimming", icon: "🏊" },
-  { name: "Бег", slug: "running", icon: "🏃" },
-  { name: "Йога", slug: "yoga", icon: "🧘" },
-  { name: "Хоккей", slug: "hockey", icon: "🏒" },
-  { name: "Бадминтон", slug: "badminton", icon: "🏸" },
-  { name: "Воркаут", slug: "workout", icon: "💪" },
+  { name: "Футбол", slug: "football" },
+  { name: "Баскетбол", slug: "basketball" },
+  { name: "Теннис", slug: "tennis" },
+  { name: "Волейбол", slug: "volleyball" },
+  { name: "Плавание", slug: "swimming" },
+  { name: "Бег", slug: "running" },
+  { name: "Йога", slug: "yoga" },
+  { name: "Хоккей", slug: "hockey" },
+  { name: "Бадминтон", slug: "badminton" },
+  { name: "Воркаут", slug: "workout" },
 ];
 
 async function main() {

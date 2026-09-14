@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { api } from "@/lib/api";
 import { useAuth } from "@/lib/auth-context";
+import { IconStar, IconStarOutline } from "./icons";
 
 export function FavoriteButton({ venueId, eventId }: { venueId?: string; eventId?: string }) {
   const { user } = useAuth();
@@ -30,7 +31,8 @@ export function FavoriteButton({ venueId, eventId }: { venueId?: string; eventId
 
   return (
     <button className="btn-outline" disabled={loading} onClick={toggle}>
-      {favorited ? "★ В избранном" : "☆ В избранное"}
+      {favorited ? <IconStar className="h-4 w-4 text-amber-500" /> : <IconStarOutline className="h-4 w-4" />}
+      {favorited ? "В избранном" : "В избранное"}
     </button>
   );
 }

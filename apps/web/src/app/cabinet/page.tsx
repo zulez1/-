@@ -8,7 +8,7 @@ export default function CabinetOverviewPage() {
 
   return (
     <div>
-      <h1 className="mb-1 text-2xl font-bold">Добро пожаловать, {user?.name}!</h1>
+      <h1 className="mb-1 text-3xl font-bold tracking-tight sm:text-4xl">Добро пожаловать, {user?.name}!</h1>
       <p className="mb-6 text-slate-500">Управляйте своими бронированиями, билетами и событиями.</p>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

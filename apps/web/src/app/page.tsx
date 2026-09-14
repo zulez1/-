@@ -86,12 +86,12 @@ function HomeContent() {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-slate-900">Спорт в городе {selectedCity.name}</h1>
+        <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Спорт в городе {selectedCity.name}</h1>
         <p className="text-slate-500">Билеты на события, аренда площадок и любительские тренировки рядом с вами.</p>
       </div>
 
       <div className="mb-4 flex flex-wrap items-center gap-3">
-        <div className="flex rounded-xl bg-slate-100 p-1">
+        <div className="flex rounded-lg bg-slate-100 p-1">
           <button
             className={`rounded-lg px-4 py-1.5 text-sm font-medium ${tab === "events" ? "bg-white shadow-sm" : "text-slate-500"}`}
             onClick={() => setTab("events")}
@@ -110,7 +110,7 @@ function HomeContent() {
           <option value="">Все виды спорта</option>
           {sportTypes.map((s) => (
             <option key={s.id} value={s.id}>
-              {s.icon} {s.name}
+              {s.name}
             </option>
           ))}
         </select>

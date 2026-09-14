@@ -7,6 +7,7 @@ import { useAuth } from "@/lib/auth-context";
 import type { Venue } from "@/lib/types";
 import { YandexMap } from "@/components/YandexMap";
 import { FavoriteButton } from "@/components/FavoriteButton";
+import { IconStar, SportIcon } from "@/components/icons";
 
 function generateSlots(start: string, end: string, stepMinutes = 60): string[] {
   const toMin = (t: string) => {
@@ -109,7 +110,7 @@ export default function VenueDetailPage() {
     <div className="grid gap-6 lg:grid-cols-[1fr_380px]">
       <div>
         <div className="mb-1 flex items-start justify-between gap-3">
-          <h1 className="text-2xl font-bold text-slate-900">{venue.name}</h1>
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900">{venue.name}</h1>
           <FavoriteButton venueId={venue.id} />
         </div>
         <p className="mb-4 text-slate-500">{venue.address}</p>
@@ -117,7 +118,7 @@ export default function VenueDetailPage() {
         <div className="mb-4 flex flex-wrap gap-1.5">
           {venue.sportTypes?.map((st) => (
             <span key={st.sportType.id} className="badge bg-brand-50 text-brand-700">
-              {st.sportType.icon} {st.sportType.name}
+              <SportIcon slug={st.sportType.slug} className="h-3.5 w-3.5" /> {st.sportType.name}
             </span>
           ))}
         </div>
@@ -155,7 +156,9 @@ export default function VenueDetailPage() {
                 <div key={r.id} className="card p-4">
                   <div className="mb-1 flex items-center justify-between">
                     <span className="font-medium">{r.user?.name}</span>
-                    <span className="badge bg-amber-100 text-amber-800">★ {r.rating}</span>
+                    <span className="badge bg-amber-100 text-amber-800">
+                      <IconStar className="h-3 w-3" /> {r.rating}
+                    </span>
                   </div>
                   {r.comment && <p className="text-sm text-slate-600">{r.comment}</p>}
                 </div>

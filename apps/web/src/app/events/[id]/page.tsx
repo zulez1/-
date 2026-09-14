@@ -7,6 +7,7 @@ import { useAuth } from "@/lib/auth-context";
 import type { EventItem } from "@/lib/types";
 import { YandexMap } from "@/components/YandexMap";
 import { FavoriteButton } from "@/components/FavoriteButton";
+import { SportIcon } from "@/components/icons";
 
 const FORMAT_LABELS: Record<EventItem["format"], string> = {
   TICKETED: "Продажа билетов",
@@ -93,7 +94,7 @@ export default function EventDetailPage() {
         <div className="mb-1 flex items-start justify-between gap-3">
           <div>
             <span className="badge mb-2 bg-blue-50 text-blue-700">{FORMAT_LABELS[event.format]}</span>
-            <h1 className="text-2xl font-bold text-slate-900">{event.title}</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">{event.title}</h1>
           </div>
           <FavoriteButton eventId={event.id} />
         </div>
@@ -105,7 +106,7 @@ export default function EventDetailPage() {
         {event.sportType && (
           <div className="mb-4">
             <span className="badge bg-brand-50 text-brand-700">
-              {event.sportType.icon} {event.sportType.name}
+              <SportIcon slug={event.sportType.slug} className="h-3.5 w-3.5" /> {event.sportType.name}
             </span>
           </div>
         )}

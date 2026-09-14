@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { EventItem } from "@/lib/types";
+import { SportIcon } from "./icons";
 
 const FORMAT_LABELS: Record<EventItem["format"], string> = {
   TICKETED: "Билеты",
@@ -26,7 +27,7 @@ export function EventCard({ event }: { event: EventItem }) {
       <div className="mb-3 flex flex-wrap items-center gap-1.5 text-xs text-slate-500">
         {event.sportType && (
           <span className="badge bg-brand-50 text-brand-700">
-            {event.sportType.icon} {event.sportType.name}
+            <SportIcon slug={event.sportType.slug} className="h-3 w-3" /> {event.sportType.name}
           </span>
         )}
         <span>
