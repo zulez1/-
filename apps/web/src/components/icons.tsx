@@ -147,6 +147,97 @@ export function IconActivity(props: IconProps) {
   );
 }
 
+export function IconCalendar(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <rect x="3" y="5" width="18" height="16" rx="2" />
+      <path d="M3 10h18M8 3v4M16 3v4" />
+    </Svg>
+  );
+}
+
+export function IconTicket(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M4 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-4z" />
+      <path d="M14 6v12" strokeDasharray="2 2" />
+    </Svg>
+  );
+}
+
+export function IconPlus(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M12 5v14M5 12h14" />
+    </Svg>
+  );
+}
+
+export function IconMapPin(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11z" />
+      <circle cx="12" cy="10" r="2.4" />
+    </Svg>
+  );
+}
+
+export function IconUser(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <circle cx="12" cy="8" r="3.6" />
+      <path d="M4.5 20c1.4-3.6 4.4-5.5 7.5-5.5s6.1 1.9 7.5 5.5" />
+    </Svg>
+  );
+}
+
+export function IconUsers(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <circle cx="9" cy="8" r="3.2" />
+      <path d="M2.5 19c1.2-3.2 3.7-4.8 6.5-4.8s5.3 1.6 6.5 4.8" />
+      <path d="M15.5 5.2a3.2 3.2 0 0 1 0 6" />
+      <path d="M16.5 14.4c2.2.4 3.9 1.9 4.8 4.6" />
+    </Svg>
+  );
+}
+
+export function IconBuilding(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <rect x="4" y="3" width="12" height="18" rx="1" />
+      <path d="M8 7h4M8 11h4M8 15h4" />
+      <path d="M16 21v-8h4v8" />
+    </Svg>
+  );
+}
+
+export function IconTrendingUp(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M3 17l6-6 4 4 8-8" />
+      <path d="M15 7h6v6" />
+    </Svg>
+  );
+}
+
+export function IconArrowRight(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M5 12h14M13 6l6 6-6 6" />
+    </Svg>
+  );
+}
+
+export function IconInbox(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M4 12l2.5-7h11L20 12" />
+      <path d="M4 12v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6h-5a3 3 0 0 1-6 0z" />
+    </Svg>
+  );
+}
+
 export const SPORT_ICONS: Record<string, (props: IconProps) => JSX.Element> = {
   football: IconFootball,
   basketball: IconBasketball,

@@ -9,7 +9,7 @@ export function CitySelector() {
 
   return (
     <select
-      className="rounded-md border border-slate-300 bg-white px-3 py-2 text-sm"
+      className="max-w-[140px] rounded-md border border-slate-300 bg-white px-3 py-2 text-sm"
       value={selectedCity?.slug ?? ""}
       onChange={(e) => setSelectedCitySlug(e.target.value)}
     >

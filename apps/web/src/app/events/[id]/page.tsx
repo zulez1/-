@@ -7,7 +7,8 @@ import { useAuth } from "@/lib/auth-context";
 import type { EventItem } from "@/lib/types";
 import { YandexMap } from "@/components/YandexMap";
 import { FavoriteButton } from "@/components/FavoriteButton";
-import { SportIcon } from "@/components/icons";
+import { ReviewForm } from "@/components/ReviewForm";
+import { IconStar, SportIcon } from "@/components/icons";
 
 const FORMAT_LABELS: Record<EventItem["format"], string> = {
   TICKETED: "Продажа билетов",
@@ -125,7 +126,7 @@ export default function EventDetailPage() {
         </div>
 
         {event.format === "MEETUP" && event.participants && event.participants.length > 0 && (
-          <div>
+          <div className="mb-6">
             <h2 className="mb-2 font-semibold">Участники ({event.participants.length})</h2>
             <div className="flex flex-wrap gap-2">
               {event.participants.map((p) => (
@@ -136,6 +137,28 @@ export default function EventDetailPage() {
             </div>
           </div>
         )}
+
+        <div>
+          <h2 className="mb-3 font-semibold">Отзывы</h2>
+          {event.reviews && event.reviews.length > 0 ? (
+            <div className="mb-4 space-y-3">
+              {event.reviews.map((r) => (
+                <div key={r.id} className="card p-4">
+                  <div className="mb-1 flex items-center justify-between">
+                    <span className="font-medium">{r.user?.name}</span>
+                    <span className="badge bg-amber-100 text-amber-800">
+                      <IconStar className="h-3 w-3" /> {r.rating}
+                    </span>
+                  </div>
+                  {r.comment && <p className="text-sm text-slate-600">{r.comment}</p>}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="mb-4 text-sm text-slate-400">Пока нет отзывов</p>
+          )}
+          <ReviewForm eventId={event.id} onSubmitted={load} />
+        </div>
       </div>
 
       <div className="lg:sticky lg:top-20 lg:h-fit">

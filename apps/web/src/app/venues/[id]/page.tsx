@@ -7,6 +7,7 @@ import { useAuth } from "@/lib/auth-context";
 import type { Venue } from "@/lib/types";
 import { YandexMap } from "@/components/YandexMap";
 import { FavoriteButton } from "@/components/FavoriteButton";
+import { ReviewForm } from "@/components/ReviewForm";
 import { IconStar, SportIcon } from "@/components/icons";
 
 function generateSlots(start: string, end: string, stepMinutes = 60): string[] {
@@ -42,11 +43,13 @@ export default function VenueDetailPage() {
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
-  useEffect(() => {
+  const loadVenue = () => {
     api<Venue>(`/venues/${id}`, { auth: false })
       .then(setVenue)
       .catch(() => setVenue(null));
-  }, [id]);
+  };
+
+  useEffect(loadVenue, [id]);
 
   useEffect(() => {
     if (!venue) return;
@@ -152,7 +155,7 @@ export default function VenueDetailPage() {
           <h2 className="mb-3 font-semibold">Отзывы</h2>
           {venue.reviews && venue.reviews.length > 0 ? (
             <div className="space-y-3">
-              {venue.reviews.map((r: any) => (
+              {venue.reviews.map((r) => (
                 <div key={r.id} className="card p-4">
                   <div className="mb-1 flex items-center justify-between">
                     <span className="font-medium">{r.user?.name}</span>
@@ -165,8 +168,11 @@ export default function VenueDetailPage() {
               ))}
             </div>
           ) : (
-            <p className="text-sm text-slate-400">Пока нет отзывов</p>
+            <p className="mb-4 text-sm text-slate-400">Пока нет отзывов</p>
           )}
+          <div className="mt-4">
+            <ReviewForm venueId={venue.id} onSubmitted={loadVenue} />
+          </div>
         </div>
       </div>
 

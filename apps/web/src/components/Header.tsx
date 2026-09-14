@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth-context";
 import { CitySelector } from "./CitySelector";
+import { IconActivity } from "./icons";
 
 export function Header() {
   const { user, logout } = useAuth();
@@ -21,9 +22,12 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/90 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
+      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-3">
         <div className="flex items-center gap-6">
-          <Link href="/" className="text-xl font-bold tracking-tight text-brand-700">
+          <Link href="/" className="flex items-center gap-2 text-xl font-bold tracking-tight text-brand-700">
+            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-brand-600 to-emerald-500 text-white">
+              <IconActivity className="h-[18px] w-[18px]" />
+            </span>
             СпортМаркет
           </Link>
           <nav className="hidden items-center gap-5 md:flex">

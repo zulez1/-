@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState, type ReactNode } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { api } from "@/lib/api";
 import { useCity } from "@/lib/city-context";
@@ -8,6 +8,7 @@ import type { EventItem, SportType, Venue } from "@/lib/types";
 import { YandexMap, MapPoint } from "@/components/YandexMap";
 import { EventCard } from "@/components/EventCard";
 import { VenueCard } from "@/components/VenueCard";
+import { IconBuilding, IconInbox, IconMapPin, IconTicket } from "@/components/icons";
 
 type Tab = "events" | "venues";
 
@@ -20,7 +21,7 @@ export default function HomePage() {
 }
 
 function HomeContent() {
-  const { selectedCity, loading: cityLoading } = useCity();
+  const { cities, selectedCity, loading: cityLoading } = useCity();
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -83,11 +84,27 @@ function HomeContent() {
     return <div className="py-20 text-center text-slate-400">Загрузка городов...</div>;
   }
 
+  const activeCount = tab === "events" ? events.length : venues.length;
+
   return (
     <div>
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Спорт в городе {selectedCity.name}</h1>
-        <p className="text-slate-500">Билеты на события, аренда площадок и любительские тренировки рядом с вами.</p>
+      <div className="relative mb-8 overflow-hidden rounded-2xl bg-gradient-to-br from-brand-700 via-brand-600 to-emerald-500 px-6 py-10 text-white sm:px-10 sm:py-14">
+        <div className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-24 left-1/3 h-72 w-72 rounded-full bg-accent-400/20 blur-3xl" />
+        <div className="relative">
+          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">Спорт в городе {selectedCity.name}</h1>
+          <p className="mt-3 max-w-xl text-brand-50/90">
+            Билеты на события, аренда площадок и любительские тренировки рядом с вами.
+          </p>
+          <div className="mt-7 flex flex-wrap gap-6">
+            <HeroStat icon={<IconMapPin className="h-5 w-5" />} value={cities.length} label="городов" />
+            <HeroStat
+              icon={tab === "events" ? <IconTicket className="h-5 w-5" /> : <IconBuilding className="h-5 w-5" />}
+              value={activeCount}
+              label={tab === "events" ? "событий в этом городе" : "площадок в этом городе"}
+            />
+          </div>
+        </div>
       </div>
 
       <div className="mb-4 flex flex-wrap items-center gap-3">
@@ -162,5 +179,24 @@ function HomeContent() {
 }
 
 function EmptyState({ label }: { label: string }) {
-  return <div className="card p-10 text-center text-slate-400">{label}</div>;
+  return (
+    <div className="card flex flex-col items-center gap-3 p-10 text-center text-slate-400">
+      <div className="icon-chip h-12 w-12 bg-slate-100 text-slate-400">
+        <IconInbox className="h-6 w-6" />
+      </div>
+      <p>{label}</p>
+    </div>
+  );
+}
+
+function HeroStat({ icon, value, label }: { icon: ReactNode; value: number; label: string }) {
+  return (
+    <div className="flex items-center gap-3">
+      <div className="icon-chip bg-white/15 text-white">{icon}</div>
+      <div>
+        <div className="text-2xl font-bold leading-none">{value}</div>
+        <div className="text-sm text-brand-50/80">{label}</div>
+      </div>
+    </div>
+  );
 }

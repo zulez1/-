@@ -32,6 +32,14 @@ export interface SportType {
   icon?: string | null;
 }
 
+export interface Review {
+  id: string;
+  rating: number;
+  comment?: string | null;
+  createdAt: string;
+  user?: { id: string; name: string; avatarUrl?: string | null };
+}
+
 export interface Venue {
   id: string;
   name: string;
@@ -50,7 +58,7 @@ export interface Venue {
   workingHoursEnd: string;
   rejectionReason?: string | null;
   sportTypes?: { sportType: SportType }[];
-  reviews?: { rating: number }[];
+  reviews?: Review[];
 }
 
 export interface EventItem {
@@ -79,6 +87,7 @@ export interface EventItem {
   rejectionReason?: string | null;
   _count?: { tickets: number; participants: number };
   participants?: { user: { id: string; name: string; avatarUrl?: string | null } }[];
+  reviews?: Review[];
 }
 
 export interface Booking {

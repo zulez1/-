@@ -89,7 +89,7 @@ export default function CheckoutPage() {
             <p className="mb-4 text-xs text-slate-400">
               Это демонстрационный (mock) платёжный провайдер — реальное списание средств не происходит.
             </p>
-            <button className="btn-primary w-full" disabled={processing || Number(order.totalAmount) < 0} onClick={pay}>
+            <button className="btn-primary w-full" disabled={processing} onClick={pay}>
               {processing ? "Обрабатываем оплату..." : Number(order.totalAmount) === 0 ? "Подтвердить бесплатный заказ" : "Оплатить"}
             </button>
           </>

@@ -8,15 +8,18 @@ export class OrdersService {
   constructor(private readonly prisma: PrismaService) {}
 
   async purchaseTickets(userId: string, dto: CreateTicketOrderDto) {
-    const event = await this.prisma.event.findUnique({
-      where: { id: dto.eventId },
-      include: { _count: { select: { tickets: true } } },
-    });
+    const event = await this.prisma.event.findUnique({ where: { id: dto.eventId } });
     if (!event || event.status !== EventStatus.PUBLISHED) {
       throw new NotFoundException("Событие не найдено или недоступно");
     }
-    if (event.capacity && event._count.tickets + dto.quantity > event.capacity) {
-      throw new BadRequestException("Недостаточно свободных билетов");
+
+    if (event.capacity) {
+      const soldTickets = await this.prisma.ticket.count({
+        where: { eventId: dto.eventId, order: { status: { not: OrderStatus.CANCELLED } } },
+      });
+      if (soldTickets + dto.quantity > event.capacity) {
+        throw new BadRequestException("Недостаточно свободных билетов");
+      }
     }
 
     const unitPrice = event.isFree ? 0 : Number(event.ticketPrice ?? 0);

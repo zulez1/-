@@ -41,8 +41,16 @@ textarea:focus-visible,
   @apply rounded-lg border border-slate-200 bg-white shadow-xs;
 }
 
+.card-interactive {
+  @apply card transition-all duration-150 hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-lg;
+}
+
+.icon-chip {
+  @apply inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full;
+}
+
 .btn {
-  @apply inline-flex items-center justify-center gap-1.5 rounded-md px-4 py-2 text-sm font-medium leading-none transition-colors disabled:cursor-not-allowed disabled:opacity-50;
+  @apply inline-flex items-center justify-center gap-1.5 rounded-md px-4 py-2 text-sm font-medium leading-none transition-all active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 disabled:active:scale-100;
 }
 
 /* Primary = the one main affirmative action. */

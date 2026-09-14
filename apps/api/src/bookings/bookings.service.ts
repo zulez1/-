@@ -80,7 +80,10 @@ export class BookingsService {
   }
 
   async cancel(id: string, userId: string) {
-    const booking = await this.prisma.booking.findUnique({ where: { id }, include: { order: true } });
+    const booking = await this.prisma.booking.findUnique({
+      where: { id },
+      include: { order: { include: { payment: true } } },
+    });
     if (!booking) throw new NotFoundException("Бронирование не найдено");
     if (booking.userId !== userId) throw new ForbiddenException("Нет доступа к этому бронированию");
 
@@ -88,6 +91,9 @@ export class BookingsService {
       const updated = await tx.booking.update({ where: { id }, data: { status: BookingStatus.CANCELLED } });
       if (booking.order) {
         await tx.order.update({ where: { id: booking.order.id }, data: { status: OrderStatus.CANCELLED } });
+        if (booking.order.payment && booking.order.payment.status === "PENDING") {
+          await tx.payment.update({ where: { id: booking.order.payment.id }, data: { status: "FAILED" } });
+        }
       }
       return updated;
     });

@@ -1,16 +1,33 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { api } from "@/lib/api";
 import { useAuth } from "@/lib/auth-context";
 import { IconStar, IconStarOutline } from "./icons";
+
+interface FavoriteRecord {
+  venueId?: string | null;
+  eventId?: string | null;
+}
 
 export function FavoriteButton({ venueId, eventId }: { venueId?: string; eventId?: string }) {
   const { user } = useAuth();
   const router = useRouter();
   const [favorited, setFavorited] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!user) {
+      setFavorited(false);
+      return;
+    }
+    api<FavoriteRecord[]>("/users/me/favorites")
+      .then((favorites) => {
+        setFavorited(favorites.some((f) => (venueId && f.venueId === venueId) || (eventId && f.eventId === eventId)));
+      })
+      .catch(() => setFavorited(false));
+  }, [user, venueId, eventId]);
 
   const toggle = async () => {
     if (!user) {
