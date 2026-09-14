@@ -59,6 +59,7 @@ export interface Venue {
   rejectionReason?: string | null;
   sportTypes?: { sportType: SportType }[];
   reviews?: Review[];
+  _count?: { bookings: number; reviews: number };
 }
 
 export interface EventItem {

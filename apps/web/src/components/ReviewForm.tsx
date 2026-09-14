@@ -55,9 +55,15 @@ export function ReviewForm({
         <span className="label">Ваша оценка</span>
         <div className="flex gap-1">
           {[1, 2, 3, 4, 5].map((value) => (
-            <button key={value} type="button" onClick={() => setRating(value)} aria-label={`${value} из 5`}>
+            <button
+              key={value}
+              type="button"
+              className="transition-transform hover:scale-110"
+              onClick={() => setRating(value)}
+              aria-label={`${value} из 5`}
+            >
               {value <= rating ? (
-                <IconStar className="h-6 w-6 text-amber-500" />
+                <IconStar className="h-6 w-6 text-warning-500" />
               ) : (
                 <IconStarOutline className="h-6 w-6 text-slate-300" />
               )}

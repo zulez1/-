@@ -2,8 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
+import { ListSkeleton } from "@/components/Skeleton";
+import { EmptyState } from "@/components/EmptyState";
 import { EventCard } from "@/components/EventCard";
 import { VenueCard } from "@/components/VenueCard";
+import { IconStarOutline } from "@/components/icons";
 import type { EventItem, Venue } from "@/lib/types";
 
 interface FavoriteItem {
@@ -22,13 +25,19 @@ export default function FavoritesPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <div className="py-10 text-center text-slate-400">Загрузка...</div>;
+  if (loading) return <ListSkeleton />;
 
   return (
     <div>
       <h1 className="mb-4 text-xl font-bold">Избранное</h1>
       {favorites.length === 0 ? (
-        <div className="card p-8 text-center text-slate-400">Вы ещё ничего не добавили в избранное</div>
+        <EmptyState
+          icon={<IconStarOutline className="h-6 w-6" />}
+          title="Вы ещё ничего не добавили в избранное"
+          description="Отмечайте понравившиеся события и площадки, чтобы быстро находить их здесь"
+          actionLabel="Перейти в каталог"
+          actionHref="/"
+        />
       ) : (
         <div className="grid gap-4 sm:grid-cols-2">
           {favorites.map((f) => (f.venue ? <VenueCard key={f.id} venue={f.venue} /> : f.event ? <EventCard key={f.id} event={f.event} /> : null))}

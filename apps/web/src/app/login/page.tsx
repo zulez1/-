@@ -51,7 +51,7 @@ export default function LoginPage() {
               minLength={6}
             />
           </div>
-          {error && <p className="text-sm text-red-600">{error}</p>}
+          {error && <p className="text-sm text-danger-600">{error}</p>}
           <button className="btn-primary w-full" type="submit" disabled={loading}>
             {loading ? "Входим..." : "Войти"}
           </button>

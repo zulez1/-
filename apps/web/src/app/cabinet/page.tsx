@@ -14,7 +14,7 @@ export default function CabinetOverviewPage() {
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <Link href="/cabinet/bookings" className="card-interactive flex items-start gap-3 p-5">
-          <div className="icon-chip bg-blue-50 text-blue-600">
+          <div className="icon-chip bg-secondary-50 text-secondary-600">
             <IconCalendar className="h-[18px] w-[18px]" />
           </div>
           <div>
@@ -23,7 +23,7 @@ export default function CabinetOverviewPage() {
           </div>
         </Link>
         <Link href="/cabinet/tickets" className="card-interactive flex items-start gap-3 p-5">
-          <div className="icon-chip bg-purple-50 text-purple-600">
+          <div className="icon-chip bg-warning-50 text-warning-600">
             <IconTicket className="h-[18px] w-[18px]" />
           </div>
           <div>
@@ -52,7 +52,7 @@ export default function CabinetOverviewPage() {
           </Link>
         )}
         <Link href="/cabinet/favorites" className="card-interactive flex items-start gap-3 p-5">
-          <div className="icon-chip bg-amber-50 text-amber-600">
+          <div className="icon-chip bg-warning-50 text-warning-600">
             <IconStarOutline className="h-[18px] w-[18px]" />
           </div>
           <div>

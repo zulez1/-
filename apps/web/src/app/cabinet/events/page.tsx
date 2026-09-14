@@ -3,25 +3,11 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { api } from "@/lib/api";
+import { ListSkeleton } from "@/components/Skeleton";
+import { EmptyState } from "@/components/EmptyState";
+import { IconCalendar } from "@/components/icons";
 import type { EventItem } from "@/lib/types";
-
-const STATUS_LABELS: Record<EventItem["status"], string> = {
-  DRAFT: "Черновик",
-  PENDING_REVIEW: "На модерации",
-  PUBLISHED: "Опубликовано",
-  REJECTED: "Отклонено",
-  CANCELLED: "Отменено",
-  FINISHED: "Завершено",
-};
-
-const STATUS_COLORS: Record<EventItem["status"], string> = {
-  DRAFT: "bg-slate-100 text-slate-500",
-  PENDING_REVIEW: "bg-amber-100 text-amber-800",
-  PUBLISHED: "bg-emerald-100 text-emerald-800",
-  REJECTED: "bg-red-100 text-red-700",
-  CANCELLED: "bg-slate-100 text-slate-500",
-  FINISHED: "bg-slate-100 text-slate-600",
-};
+import { EVENT_STATUS_BADGE as STATUS_COLORS, EVENT_STATUS_LABELS as STATUS_LABELS } from "@/lib/status";
 
 export default function MyEventsPage() {
   const [events, setEvents] = useState<EventItem[]>([]);
@@ -38,7 +24,7 @@ export default function MyEventsPage() {
     setEvents((prev) => prev.map((e) => (e.id === id ? { ...e, status: "CANCELLED" } : e)));
   };
 
-  if (loading) return <div className="py-10 text-center text-slate-400">Загрузка...</div>;
+  if (loading) return <ListSkeleton />;
 
   return (
     <div>
@@ -49,7 +35,13 @@ export default function MyEventsPage() {
         </Link>
       </div>
       {events.length === 0 ? (
-        <div className="card p-8 text-center text-slate-400">Вы ещё не создавали события</div>
+        <EmptyState
+          icon={<IconCalendar className="h-6 w-6" />}
+          title="Вы ещё не создавали события"
+          description="Организуйте своё первое спортивное событие и найдите участников"
+          actionLabel="Создать событие"
+          actionHref="/cabinet/events/new"
+        />
       ) : (
         <div className="space-y-3">
           {events.map((e) => (
@@ -63,11 +55,11 @@ export default function MyEventsPage() {
                   {e.capacity ? ` / ${e.capacity}` : ""} участников
                 </div>
                 {e.status === "REJECTED" && e.rejectionReason && (
-                  <div className="mt-1 text-xs text-red-600">Причина отклонения: {e.rejectionReason}</div>
+                  <div className="mt-1 text-xs text-danger-600">Причина отклонения: {e.rejectionReason}</div>
                 )}
               </div>
               <div className="flex items-center gap-3">
-                <span className={`badge ${STATUS_COLORS[e.status]}`}>{STATUS_LABELS[e.status]}</span>
+                <span className={STATUS_COLORS[e.status]}>{STATUS_LABELS[e.status]}</span>
                 {(e.status === "PUBLISHED" || e.status === "PENDING_REVIEW") && (
                   <button className="btn-danger" onClick={() => cancel(e.id)}>
                     Отменить

@@ -24,6 +24,11 @@ export class AdminController {
     return this.adminService.stats();
   }
 
+  @Get("stats/trend")
+  trend() {
+    return this.adminService.trend();
+  }
+
   @Get("users")
   listUsers() {
     return this.adminService.listUsers();

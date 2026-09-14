@@ -3,6 +3,9 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { api } from "@/lib/api";
+import { ListSkeleton } from "@/components/Skeleton";
+import { EmptyState } from "@/components/EmptyState";
+import { IconTicket } from "@/components/icons";
 import type { Ticket } from "@/lib/types";
 
 export default function MyTicketsPage() {
@@ -15,13 +18,19 @@ export default function MyTicketsPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <div className="py-10 text-center text-slate-400">Загрузка...</div>;
+  if (loading) return <ListSkeleton />;
 
   return (
     <div>
       <h1 className="mb-4 text-xl font-bold">Мои билеты</h1>
       {tickets.length === 0 ? (
-        <div className="card p-8 text-center text-slate-400">У вас пока нет билетов</div>
+        <EmptyState
+          icon={<IconTicket className="h-6 w-6" />}
+          title="У вас пока нет билетов"
+          description="Выберите интересное событие и приобретите билет"
+          actionLabel="Смотреть события"
+          actionHref="/"
+        />
       ) : (
         <div className="grid gap-4 sm:grid-cols-2">
           {tickets.map((t) => (

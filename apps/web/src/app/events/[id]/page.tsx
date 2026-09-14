@@ -7,8 +7,11 @@ import { useAuth } from "@/lib/auth-context";
 import type { EventItem } from "@/lib/types";
 import { YandexMap } from "@/components/YandexMap";
 import { FavoriteButton } from "@/components/FavoriteButton";
+import { Avatar } from "@/components/Avatar";
 import { ReviewForm } from "@/components/ReviewForm";
 import { IconStar, SportIcon } from "@/components/icons";
+import { FORMAT_BADGE } from "@/lib/format";
+import { DetailPageSkeleton } from "@/components/Skeleton";
 
 const FORMAT_LABELS: Record<EventItem["format"], string> = {
   TICKETED: "Продажа билетов",
@@ -82,7 +85,7 @@ export default function EventDetailPage() {
     }
   };
 
-  if (!event) return <div className="py-20 text-center text-slate-400">Загрузка...</div>;
+  if (!event) return <DetailPageSkeleton />;
 
   const date = new Date(event.startsAt);
   const dateEnd = new Date(event.endsAt);
@@ -94,7 +97,7 @@ export default function EventDetailPage() {
       <div>
         <div className="mb-1 flex items-start justify-between gap-3">
           <div>
-            <span className="badge mb-2 bg-blue-50 text-blue-700">{FORMAT_LABELS[event.format]}</span>
+            <span className={`${FORMAT_BADGE[event.format]} mb-2`}>{FORMAT_LABELS[event.format]}</span>
             <h1 className="text-3xl font-bold tracking-tight text-slate-900">{event.title}</h1>
           </div>
           <FavoriteButton eventId={event.id} />
@@ -106,7 +109,7 @@ export default function EventDetailPage() {
 
         {event.sportType && (
           <div className="mb-4">
-            <span className="badge bg-brand-50 text-brand-700">
+            <span className="badge-success">
               <SportIcon slug={event.sportType.slug} className="h-3.5 w-3.5" /> {event.sportType.name}
             </span>
           </div>
@@ -130,7 +133,7 @@ export default function EventDetailPage() {
             <h2 className="mb-2 font-semibold">Участники ({event.participants.length})</h2>
             <div className="flex flex-wrap gap-2">
               {event.participants.map((p) => (
-                <span key={p.user.id} className="badge bg-slate-100 text-slate-700">
+                <span key={p.user.id} className="badge-neutral">
                   {p.user.name}
                 </span>
               ))}
@@ -145,8 +148,11 @@ export default function EventDetailPage() {
               {event.reviews.map((r) => (
                 <div key={r.id} className="card p-4">
                   <div className="mb-1 flex items-center justify-between">
-                    <span className="font-medium">{r.user?.name}</span>
-                    <span className="badge bg-amber-100 text-amber-800">
+                    <div className="flex items-center gap-2">
+                      <Avatar name={r.user?.name ?? "?"} src={r.user?.avatarUrl} size={28} />
+                      <span className="font-medium">{r.user?.name}</span>
+                    </div>
+                    <span className="badge-rating">
                       <IconStar className="h-3 w-3" /> {r.rating}
                     </span>
                   </div>
@@ -170,7 +176,7 @@ export default function EventDetailPage() {
                 {participantsCount}
                 {event.capacity ? ` из ${event.capacity}` : ""} участников
               </p>
-              {error && <p className="mb-3 text-sm text-red-600">{error}</p>}
+              {error && <p className="mb-3 text-sm text-danger-600">{error}</p>}
               <button
                 className={joined ? "btn-secondary w-full" : "btn-primary w-full"}
                 disabled={submitting || (!joined && isFull)}
@@ -197,7 +203,7 @@ export default function EventDetailPage() {
                   />
                 </>
               )}
-              {error && <p className="mb-3 text-sm text-red-600">{error}</p>}
+              {error && <p className="mb-3 text-sm text-danger-600">{error}</p>}
               <button className="btn-primary w-full" disabled={submitting || isFull} onClick={handleBuyTickets}>
                 {submitting ? "Оформляем..." : isFull ? "Билетов нет" : "Купить билет"}
               </button>

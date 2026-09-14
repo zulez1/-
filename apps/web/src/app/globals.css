@@ -83,3 +83,66 @@ textarea:focus-visible,
 .badge {
   @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium;
 }
+
+/* Semantic badge variants — one place to change a status colour everywhere it appears. */
+.badge-success {
+  @apply badge bg-brand-50 text-brand-700;
+}
+
+.badge-info {
+  @apply badge bg-secondary-50 text-secondary-700;
+}
+
+.badge-warning {
+  @apply badge bg-warning-50 text-warning-800;
+}
+
+.badge-danger {
+  @apply badge bg-danger-50 text-danger-700;
+}
+
+.badge-accent {
+  @apply badge bg-accent-50 text-accent-700;
+}
+
+.badge-neutral {
+  @apply badge bg-slate-100 text-slate-600;
+}
+
+.badge-rating {
+  @apply badge bg-warning-100 text-warning-800;
+}
+
+/* Standard interactive transition for anything that isn't a .btn/.card-interactive. */
+.transition-standard {
+  @apply transition-all duration-150 ease-out;
+}
+
+/* Horizontal scroll-snap row (promo carousels, "Nearby events", "Top venues"). */
+.scroll-row {
+  @apply flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2;
+  scrollbar-width: none;
+}
+
+.scroll-row::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-row > * {
+  @apply snap-start;
+}
+
+.section-title {
+  @apply text-xl font-bold tracking-tight text-slate-900 sm:text-2xl;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

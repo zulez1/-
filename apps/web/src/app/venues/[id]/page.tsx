@@ -7,8 +7,10 @@ import { useAuth } from "@/lib/auth-context";
 import type { Venue } from "@/lib/types";
 import { YandexMap } from "@/components/YandexMap";
 import { FavoriteButton } from "@/components/FavoriteButton";
+import { Avatar } from "@/components/Avatar";
 import { ReviewForm } from "@/components/ReviewForm";
 import { IconStar, SportIcon } from "@/components/icons";
+import { DetailPageSkeleton } from "@/components/Skeleton";
 
 function generateSlots(start: string, end: string, stepMinutes = 60): string[] {
   const toMin = (t: string) => {
@@ -107,7 +109,7 @@ export default function VenueDetailPage() {
     }
   };
 
-  if (!venue) return <div className="py-20 text-center text-slate-400">Загрузка...</div>;
+  if (!venue) return <DetailPageSkeleton />;
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_380px]">
@@ -120,7 +122,7 @@ export default function VenueDetailPage() {
 
         <div className="mb-4 flex flex-wrap gap-1.5">
           {venue.sportTypes?.map((st) => (
-            <span key={st.sportType.id} className="badge bg-brand-50 text-brand-700">
+            <span key={st.sportType.id} className="badge-success">
               <SportIcon slug={st.sportType.slug} className="h-3.5 w-3.5" /> {st.sportType.name}
             </span>
           ))}
@@ -133,7 +135,7 @@ export default function VenueDetailPage() {
             <h2 className="mb-2 font-semibold">Удобства</h2>
             <div className="flex flex-wrap gap-2">
               {venue.amenities.map((a) => (
-                <span key={a} className="badge bg-slate-100 text-slate-600">
+                <span key={a} className="badge-neutral">
                   {a}
                 </span>
               ))}
@@ -158,8 +160,11 @@ export default function VenueDetailPage() {
               {venue.reviews.map((r) => (
                 <div key={r.id} className="card p-4">
                   <div className="mb-1 flex items-center justify-between">
-                    <span className="font-medium">{r.user?.name}</span>
-                    <span className="badge bg-amber-100 text-amber-800">
+                    <div className="flex items-center gap-2">
+                      <Avatar name={r.user?.name ?? "?"} src={r.user?.avatarUrl} size={28} />
+                      <span className="font-medium">{r.user?.name}</span>
+                    </div>
+                    <span className="badge-rating">
                       <IconStar className="h-3 w-3" /> {r.rating}
                     </span>
                   </div>
@@ -216,7 +221,7 @@ export default function VenueDetailPage() {
                 <button
                   key={slot}
                   disabled={!available}
-                  className={`rounded-lg border px-2 py-1.5 text-sm ${
+                  className={`rounded-lg border px-2 py-1.5 text-sm transition-colors ${
                     startTime === slot
                       ? "border-brand-600 bg-brand-600 text-white"
                       : available
@@ -231,7 +236,7 @@ export default function VenueDetailPage() {
             })}
           </div>
 
-          {error && <p className="mb-3 text-sm text-red-600">{error}</p>}
+          {error && <p className="mb-3 text-sm text-danger-600">{error}</p>}
 
           <button className="btn-primary w-full" disabled={!startTime || submitting} onClick={handleBook}>
             {submitting ? "Бронируем..." : `Забронировать за ${(Number(venue.pricePerHour) * durationHours).toLocaleString("ru-RU")} ₽`}

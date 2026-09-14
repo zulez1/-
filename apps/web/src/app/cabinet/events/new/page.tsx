@@ -104,7 +104,7 @@ export default function NewEventPage() {
               <button
                 type="button"
                 key={opt.value}
-                className={`rounded-lg border p-3 text-left text-sm ${
+                className={`rounded-lg border p-3 text-left text-sm transition-colors ${
                   form.format === opt.value ? "border-brand-600 bg-brand-50" : "border-slate-200 hover:border-brand-300"
                 }`}
                 onClick={() => setForm({ ...form, format: opt.value })}
@@ -229,7 +229,7 @@ export default function NewEventPage() {
           )}
         </div>
 
-        {error && <p className="text-sm text-red-600">{error}</p>}
+        {error && <p className="text-sm text-danger-600">{error}</p>}
 
         <button className="btn-primary w-full" type="submit" disabled={submitting}>
           {submitting ? "Отправляем..." : "Отправить на модерацию"}

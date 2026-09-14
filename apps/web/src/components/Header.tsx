@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth-context";
 import { CitySelector } from "./CitySelector";
+import { Avatar } from "./Avatar";
 import { IconActivity } from "./icons";
 
 export function Header() {
@@ -14,7 +15,7 @@ export function Header() {
   const navLink = (href: string, label: string) => (
     <Link
       href={href}
-      className={`text-sm font-medium ${pathname === href ? "text-brand-700" : "text-slate-600 hover:text-slate-900"}`}
+      className={`text-sm font-medium transition-colors ${pathname === href ? "text-brand-700" : "text-slate-600 hover:text-slate-900"}`}
     >
       {label}
     </Link>
@@ -40,7 +41,8 @@ export function Header() {
           <CitySelector />
           {user ? (
             <div className="flex items-center gap-2">
-              <Link href="/cabinet" className="btn-outline">
+              <Link href="/cabinet" className="flex items-center gap-2 rounded-lg py-1 pl-1 pr-3 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-100">
+                <Avatar name={user.name} src={user.avatarUrl} size={28} />
                 {user.name.split(" ")[0]}
               </Link>
               <button

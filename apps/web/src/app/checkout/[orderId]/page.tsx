@@ -72,7 +72,7 @@ export default function CheckoutPage() {
           <span className="text-lg font-bold">{Number(order.totalAmount).toLocaleString("ru-RU")} ₽</span>
         </div>
 
-        {error && <p className="mb-3 text-sm text-red-600">{error}</p>}
+        {error && <p className="mb-3 text-sm text-danger-600">{error}</p>}
 
         {isPaid ? (
           <div className="text-center">

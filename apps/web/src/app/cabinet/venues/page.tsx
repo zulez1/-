@@ -3,21 +3,11 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { api } from "@/lib/api";
+import { ListSkeleton } from "@/components/Skeleton";
+import { EmptyState } from "@/components/EmptyState";
+import { IconBuilding } from "@/components/icons";
 import type { Venue } from "@/lib/types";
-
-const STATUS_LABELS: Record<Venue["status"], string> = {
-  PENDING_REVIEW: "На модерации",
-  PUBLISHED: "Опубликована",
-  REJECTED: "Отклонена",
-  ARCHIVED: "В архиве",
-};
-
-const STATUS_COLORS: Record<Venue["status"], string> = {
-  PENDING_REVIEW: "bg-amber-100 text-amber-800",
-  PUBLISHED: "bg-emerald-100 text-emerald-800",
-  REJECTED: "bg-red-100 text-red-700",
-  ARCHIVED: "bg-slate-100 text-slate-500",
-};
+import { VENUE_STATUS_BADGE as STATUS_COLORS, VENUE_STATUS_LABELS as STATUS_LABELS } from "@/lib/status";
 
 export default function MyVenuesPage() {
   const [venues, setVenues] = useState<Venue[]>([]);
@@ -29,7 +19,7 @@ export default function MyVenuesPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <div className="py-10 text-center text-slate-400">Загрузка...</div>;
+  if (loading) return <ListSkeleton />;
 
   return (
     <div>
@@ -40,7 +30,13 @@ export default function MyVenuesPage() {
         </Link>
       </div>
       {venues.length === 0 ? (
-        <div className="card p-8 text-center text-slate-400">У вас пока нет добавленных площадок</div>
+        <EmptyState
+          icon={<IconBuilding className="h-6 w-6" />}
+          title="У вас пока нет добавленных площадок"
+          description="Добавьте площадку, чтобы начать принимать бронирования"
+          actionLabel="Добавить площадку"
+          actionHref="/cabinet/venues/new"
+        />
       ) : (
         <div className="space-y-3">
           {venues.map((v) => (
@@ -53,10 +49,10 @@ export default function MyVenuesPage() {
                   {v.address} · {v.city?.name}
                 </div>
                 {v.status === "REJECTED" && v.rejectionReason && (
-                  <div className="mt-1 text-xs text-red-600">Причина отклонения: {v.rejectionReason}</div>
+                  <div className="mt-1 text-xs text-danger-600">Причина отклонения: {v.rejectionReason}</div>
                 )}
               </div>
-              <span className={`badge ${STATUS_COLORS[v.status]}`}>{STATUS_LABELS[v.status]}</span>
+              <span className={STATUS_COLORS[v.status]}>{STATUS_LABELS[v.status]}</span>
             </div>
           ))}
         </div>

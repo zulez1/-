@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
+import { ListSkeleton } from "@/components/Skeleton";
+import { EmptyState } from "@/components/EmptyState";
+import { IconCheck } from "@/components/icons";
 import type { Venue } from "@/lib/types";
 
 interface PendingVenue extends Venue {
@@ -32,13 +35,18 @@ export default function AdminVenuesPage() {
     setVenues((prev) => prev.filter((v) => v.id !== id));
   };
 
-  if (loading) return <div className="py-10 text-center text-slate-400">Загрузка...</div>;
+  if (loading) return <ListSkeleton />;
 
   return (
     <div>
       <h1 className="mb-4 text-xl font-bold">Модерация площадок</h1>
       {venues.length === 0 ? (
-        <div className="card p-8 text-center text-slate-400">Нет площадок, ожидающих модерации</div>
+        <EmptyState
+          icon={<IconCheck className="h-6 w-6" />}
+          title="Нет площадок, ожидающих модерации"
+          description="Все заявки обработаны — новые появятся здесь автоматически"
+          tone="success"
+        />
       ) : (
         <div className="space-y-4">
           {venues.map((v) => (

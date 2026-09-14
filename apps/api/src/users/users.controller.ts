@@ -39,4 +39,9 @@ export class UsersController {
   myFavorites(@CurrentUser() user: AuthUser) {
     return this.usersService.myFavorites(user.id);
   }
+
+  @Get("stats")
+  myStats(@CurrentUser() user: AuthUser) {
+    return this.usersService.myStats(user.id, user.role);
+  }
 }

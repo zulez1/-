@@ -159,8 +159,8 @@ export default function NewVenuePage() {
               <button
                 type="button"
                 key={s.id}
-                className={`badge border ${
-                  form.sportTypeIds.includes(s.id) ? "border-brand-600 bg-brand-600 text-white" : "border-slate-300 bg-white text-slate-600"
+                className={`badge border transition-colors ${
+                  form.sportTypeIds.includes(s.id) ? "border-brand-600 bg-brand-600 text-white" : "border-slate-300 bg-white text-slate-600 hover:border-brand-300"
                 }`}
                 onClick={() => toggleSport(s.id)}
               >
@@ -201,7 +201,7 @@ export default function NewVenuePage() {
           />
         </div>
 
-        {error && <p className="text-sm text-red-600">{error}</p>}
+        {error && <p className="text-sm text-danger-600">{error}</p>}
 
         <button className="btn-primary w-full" type="submit" disabled={submitting}>
           {submitting ? "Отправляем..." : "Отправить на модерацию"}

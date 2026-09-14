@@ -48,7 +48,7 @@ export function FavoriteButton({ venueId, eventId }: { venueId?: string; eventId
 
   return (
     <button className="btn-outline" disabled={loading} onClick={toggle}>
-      {favorited ? <IconStar className="h-4 w-4 text-amber-500" /> : <IconStarOutline className="h-4 w-4" />}
+      {favorited ? <IconStar className="h-4 w-4 text-warning-500" /> : <IconStarOutline className="h-4 w-4" />}
       {favorited ? "В избранном" : "В избранное"}
     </button>
   );

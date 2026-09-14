@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
+import { ListSkeleton } from "@/components/Skeleton";
+import { EmptyState } from "@/components/EmptyState";
+import { IconCheck } from "@/components/icons";
 import type { EventItem } from "@/lib/types";
 
 interface PendingEvent extends EventItem {
@@ -32,13 +35,18 @@ export default function AdminEventsPage() {
     setEvents((prev) => prev.filter((e) => e.id !== id));
   };
 
-  if (loading) return <div className="py-10 text-center text-slate-400">Загрузка...</div>;
+  if (loading) return <ListSkeleton />;
 
   return (
     <div>
       <h1 className="mb-4 text-xl font-bold">Модерация событий</h1>
       {events.length === 0 ? (
-        <div className="card p-8 text-center text-slate-400">Нет событий, ожидающих модерации</div>
+        <EmptyState
+          icon={<IconCheck className="h-6 w-6" />}
+          title="Нет событий, ожидающих модерации"
+          description="Все заявки обработаны — новые появятся здесь автоматически"
+          tone="success"
+        />
       ) : (
         <div className="space-y-4">
           {events.map((e) => (

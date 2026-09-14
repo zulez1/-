@@ -4,6 +4,7 @@ import { ReactNode, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth-context";
+import { PageLoader } from "@/components/Skeleton";
 
 const NAV_ITEMS = [
   { href: "/admin", label: "Статистика" },
@@ -24,7 +25,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   }, [loading, user, router]);
 
   if (loading || !user || user.role !== "ADMIN") {
-    return <div className="py-20 text-center text-slate-400">Загрузка...</div>;
+    return <PageLoader />;
   }
 
   return (
@@ -36,7 +37,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             <Link
               key={item.href}
               href={item.href}
-              className={`rounded-md px-3 py-2 text-sm ${
+              className={`rounded-md px-3 py-2 text-sm transition-colors ${
                 pathname === item.href ? "bg-brand-50 font-medium text-brand-700" : "text-slate-600 hover:bg-slate-50"
               }`}
             >
