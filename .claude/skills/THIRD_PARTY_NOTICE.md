@@ -33,3 +33,17 @@
 имеет смысл писать ближе к моменту реального запуска), `secrets-vault-manager`
 (HashiCorp Vault — избыточно для нашего масштаба, `env-secrets-manager`
 покрывает текущие потребности).
+
+## brag / brag-slim
+
+Из отдельного репозитория [latent-spaces/brag](https://github.com/latent-spaces/brag)
+(MIT License, © 2026 Shunit Haviv Hakimi — текст лицензии в
+`brag/THIRD_PARTY_LICENSE.txt`). Генерирует короткое промо-видео и
+сопутствующие материалы (одностраничник, текст для соцсетей) из кода
+проекта. Проверен `skill-security-auditor` (см. выше) — вердикт PASS для
+обоих скиллов, единственные замечания — INFO о размере bundled-музыки
+(легитимные лицензированные треки, нужны для сборки видео).
+
+`brag` — полный пайплайн через Hyperframes (npm-пакет, рендер в headless
+Chromium); `brag-slim` — облегчённый вариант, модель собирает видео сама
+из того, что уже есть на машине, без Hyperframes.
