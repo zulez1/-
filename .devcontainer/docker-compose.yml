@@ -1,0 +1,23 @@
+services:
+  app:
+    image: mcr.microsoft.com/devcontainers/javascript-node:1-20-bullseye
+    volumes:
+      - ..:/workspaces:cached
+    command: sleep infinity
+    environment:
+      DATABASE_URL: "postgresql://sem:sem@db:5432/sem?schema=public"
+    depends_on:
+      - db
+
+  db:
+    image: postgis/postgis:16-3.4
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: sem
+      POSTGRES_PASSWORD: sem
+      POSTGRES_DB: sem
+    volumes:
+      - sem_db_data:/var/lib/postgresql/data
+
+volumes:
+  sem_db_data:
