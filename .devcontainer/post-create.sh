@@ -2,9 +2,14 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
+echo "==> Ставим системные пакеты (openssl нужен движку Prisma, git — VS Code)"
+apt-get update -y
+apt-get install -y --no-install-recommends openssl ca-certificates
+rm -rf /var/lib/apt/lists/*
+
 echo "==> Включаем pnpm через corepack"
+# Версия берётся из "packageManager" в корневом package.json.
 corepack enable
-corepack prepare pnpm@10 --activate
 
 echo "==> Устанавливаем зависимости"
 pnpm install

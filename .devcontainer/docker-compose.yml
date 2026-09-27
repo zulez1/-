@@ -1,6 +1,6 @@
 services:
   app:
-    image: mcr.microsoft.com/devcontainers/javascript-node:1-20-bullseye
+    image: node:22-bookworm-slim
     volumes:
       - ..:/workspaces:cached
     command: sleep infinity
@@ -10,7 +10,7 @@ services:
       - db
 
   db:
-    image: postgis/postgis:16-3.4
+    image: postgres:16
     restart: unless-stopped
     environment:
       POSTGRES_USER: sem

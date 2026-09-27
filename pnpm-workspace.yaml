@@ -1,3 +1,13 @@
 packages:
   - "apps/*"
   - "packages/*"
+
+# Без этого allowlist свежий pnpm молча пропускает postinstall-скрипты этих
+# пакетов в неинтерактивных установках (--frozen-lockfile в CI/Docker/
+# Codespaces) и падает с ERR_PNPM_IGNORED_BUILDS — а без postinstall Prisma
+# не скачивает движок запросов и падает уже при обращении к базе.
+allowBuilds:
+  "@nestjs/core": true
+  "@prisma/client": true
+  "@prisma/engines": true
+  "prisma": true

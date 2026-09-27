@@ -6,9 +6,7 @@
   "shutdownAction": "stopCompose",
 
   "features": {
-    "ghcr.io/devcontainers/features/node:1": {
-      "version": "20"
-    }
+    "ghcr.io/devcontainers/features/git:1": {}
   },
 
   "forwardPorts": [3000, 4000],
@@ -34,7 +32,5 @@
         "esbenp.prettier-vscode"
       ]
     }
-  },
-
-  "remoteUser": "node"
+  }
 }
