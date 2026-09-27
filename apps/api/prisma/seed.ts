@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { PrismaClient, EventFormat, EventStatus, UserRole, VenueStatus, BookingStatus, OrderStatus, PaymentStatus } from "@prisma/client";
 import * as bcrypt from "bcryptjs";
 
